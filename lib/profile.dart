@@ -43,10 +43,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(
                         hintText: "Email Anda",
+                        labelText: "LoginTest@gmail.com",
                         prefixIcon: Icon(
                           Icons.email,
                           color: Colors.blue[900],
@@ -54,28 +55,45 @@ class _ProfilePageState extends State<ProfilePage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   TextFormField(
                     decoration: InputDecoration(
-                      hintText: "Password",
-                      prefixIcon: Icon(Icons.lock, color: Colors.blue[900]),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: Colors.blue[900],
-                      ),
+                      hintText: "Nama",
+                      labelText: "Bagas Ronal Abadi",
+                      prefixIcon: Icon(Icons.person_pin_outlined,
+                          color: Colors.blue[900]),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   TextFormField(
                     decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                      prefixIcon: Icon(Icons.lock, color: Colors.blue[900]),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: Colors.blue[900],
-                      ),
+                      hintText: "Umur",
+                      labelText: "22",
+                      prefixIcon: Icon(Icons.person_pin_circle_outlined,
+                          color: Colors.blue[900]),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Agama",
+                      labelText: "Islam",
+                      prefixIcon: Icon(Icons.person_pin_circle_outlined,
+                          color: Colors.blue[900]),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Alamat",
+                      labelText: "Jln Anuspati",
+                      prefixIcon: Icon(Icons.pin_drop, color: Colors.blue[900]),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),
