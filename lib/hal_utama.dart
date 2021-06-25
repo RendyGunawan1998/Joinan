@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pm9/search.dart';
 
+import 'google.dart';
+
 class MainPageHall extends StatefulWidget {
   @override
   _MainPageHallState createState() => _MainPageHallState();
@@ -10,7 +12,6 @@ class _MainPageHallState extends State<MainPageHall> {
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Column(
@@ -67,7 +68,14 @@ class _MainPageHallState extends State<MainPageHall> {
                           width: 200,
                           child: MaterialButton(
                             color: Colors.grey.withOpacity(0.5),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrackingPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "Tracking Rumah Sakit",
                               style: TextStyle(fontSize: 39),
@@ -115,18 +123,31 @@ class _MainPageHallState extends State<MainPageHall> {
         children: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.account_circle_rounded),
+            icon: Icon(
+              Icons.arrow_drop_up,
+              size: 50,
+              color: Colors.greenAccent,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.account_circle_rounded),
+            icon: Icon(
+              Icons.star,
+              size: 35,
+              color: Colors.greenAccent,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.account_circle_rounded),
+            icon: Icon(
+              Icons.circle,
+              color: Colors.greenAccent,
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+class TrackingMap {}
