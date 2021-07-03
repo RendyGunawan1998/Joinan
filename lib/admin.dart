@@ -1,33 +1,13 @@
-import 'package:cartapp/admin.dart';
-import 'package:cartapp/login.dart';
-import 'package:cartapp/registration.dart';
-// import 'package:cartapp/main.dart';
+import 'package:cartapp/crud_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class AdminPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: LoginPage());
-  }
+  _AdminPageState createState() => _AdminPageState();
 }
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class _AdminPageState extends State<AdminPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
     final _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Container(
           width: _width,
@@ -46,6 +26,10 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Text(
+                  "Admin Page",
+                  style: TextStyle(fontSize: 30),
+                ),
                 Image.asset(
                   "assets/money.png",
                   height: 150,
@@ -85,49 +69,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  // mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegistrationPage()));
-                          },
-                          child: Text(
-                            "Belum Punya Akun?",
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AdminPage()));
-                          },
-                          child: Text(
-                            "Admin?",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 SizedBox(
                   width: 200,
                   child: MaterialButton(
                     onPressed: () {
-                      Get.offAll(CartApp());
+                      // Get.offAll(CRUDProductAdmin());
                     },
                     child: Text("Login"),
                     color: Colors.greenAccent,
