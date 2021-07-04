@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:listtodo/list.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,116 +9,127 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
         accentColor: Colors.orange,
         primaryColor: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: LoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  String input = "";
-
-  createTodos() {
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection("MyTodos").doc(input);
-
-    Map<String, String> todos = {"todoTitle": input};
-
-    docRef.set(todos).whenComplete(() {
-      print("$input created");
-    });
-  }
-
-  deleteTodos(item) {
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection("MyTodos").doc(item);
-
-    docRef.delete().whenComplete(() {
-      print("$item deleted");
-    });
-  }
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("List To Do"),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("MyTodos").snapshots(),
-        builder: (context, snapshots) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: snapshots.data!.docs.length,
-            itemBuilder: (context, index) {
-              DocumentSnapshot docSnapshot = snapshots.data!.docs[index];
-              return Dismissible(
-                key: Key(index.toString()),
-                child: Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      docSnapshot["todoTitle"],
-                    ),
-                    trailing: IconButton(
-                      onPressed: () {
-                        deleteTodos(docSnapshot["todoTitle"]);
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Container(
+          // decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          //   colors: <Color>[Color(0xFFB2DFDB), Color(0xFFA7FFEB)],
+          // )),
+          width: _width,
+          height: _height,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/list.jpg",
+                  height: 150,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            icon: Icon(
+                              Icons.person,
+                              color: Colors.blueGrey[200],
+                            ),
+                            border: UnderlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "Password",
+                              icon: Icon(
+                                Icons.lock_open,
+                                color: Colors.blueGrey[200],
+                              ),
+                              border: UnderlineInputBorder()),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Add list"),
-                  content: TextField(
-                    onChanged: (String value) {
-                      input = value;
-                    },
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    // TextButton(
+                    //   onPressed: () {},
+                    //   child: Text(
+                    //     "Lupa Kata Sandi?",
+                    //     style: TextStyle(fontSize: 10),
+                    //   ),
+                    // ),
+                    TextButton(
                       onPressed: () {
-                        createTodos();
-                        Navigator.pop(context);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ));
                       },
-                      child: Text("Add"),
+                      child: Text(
+                        "Admin?",
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.red,
+                        ),
+                      ),
                     ),
                   ],
-                );
-              });
-        },
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.offAll(MyHomePage());
+                    },
+                    child: Text("Login"),
+                    color: Colors.greenAccent,
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
